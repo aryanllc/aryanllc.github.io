@@ -1,173 +1,806 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="An interactive beginner guide to artificial intelligence with explanations, quizzes, flashcards, a neural-network demo, privacy information, and a Snake game.">
-<meta name="google-adsense-account" content="ca-pub-4667984670247156">
-<title>AI Explained — Interactive Guide</title>
-<style>
-:root{--bg:#07111f;--panel:#101d31;--panel2:#0c1728;--text:#eef5ff;--muted:#aab9cf;--line:#ffffff18;--a:#7dd3fc;--b:#a78bfa;--good:#66d391;--bad:#ff8585}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 5%,#7dd3fc18,transparent 28%),radial-gradient(circle at 85% 10%,#a78bfa18,transparent 30%),linear-gradient(180deg,var(--bg),#06101b);color:var(--text);font:16px/1.72 system-ui,-apple-system,Segoe UI,sans-serif}
-a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 28px));margin:auto}
-header{position:sticky;top:0;z-index:5;background:#07111fcc;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-weight:850;display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#7dd3fc22,#a78bfa2d);border:1px solid var(--line)}
-nav{display:flex;flex-wrap:wrap;gap:5px}nav a{padding:8px 10px;color:var(--muted);border-radius:10px}nav a:hover{background:#ffffff0b;color:var(--text)}
-.hero{padding:80px 0 55px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
-.badge{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:#ffffff08;font-size:.84rem;font-weight:700}
-h1,h2,h3{line-height:1.18;letter-spacing:-.025em}h1{font-size:clamp(2.7rem,7vw,5.4rem);margin:16px 0}.grad{background:linear-gradient(110deg,var(--a),#fff,var(--b));background-clip:text;-webkit-background-clip:text;color:transparent}
-.hero p,.muted{color:var(--muted)}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:23px}.btn{border:1px solid var(--line);color:var(--text);background:#ffffff09;border-radius:12px;padding:11px 15px;cursor:pointer;font-weight:750}.btn:hover{background:#ffffff12;transform:translateY(-1px)}.primary{background:linear-gradient(135deg,var(--a),#c4b5fd);color:#06101c;border:0}
-.card{background:#101d31d9;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 16px 45px #0003}.grid{display:grid;gap:17px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-section{padding:48px 0;scroll-margin-top:80px}.head{max-width:820px;margin-bottom:22px}.head p{color:var(--muted)}
-.definition{border-left:3px solid var(--a);padding:7px 0 7px 16px;color:#dcecff}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:6px 9px;border-radius:999px;border:1px solid var(--line);background:#ffffff06;color:var(--muted);font-size:.84rem}
-.timeline{display:grid;gap:14px}.titem{display:grid;grid-template-columns:110px 1fr;gap:16px;border-top:1px solid var(--line);padding-top:14px}.titem strong{color:var(--a)}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#ffffff06}
-textarea{width:100%;resize:vertical;min-height:110px;border:1px solid var(--line);border-radius:14px;background:#071321;color:var(--text);padding:12px}.result{margin-top:12px;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#ffffff06;color:var(--muted)}
-.progress{height:9px;border-radius:99px;background:#ffffff0a;border:1px solid var(--line);overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:.3s}
-.options{display:grid;gap:9px;margin-top:15px}.opt{text-align:left;padding:11px 13px;background:#ffffff06;color:var(--text);border:1px solid var(--line);border-radius:12px;cursor:pointer}.opt.good{border-color:#66d39199;background:#66d39118}.opt.bad{border-color:#ff858599;background:#ff858514}
-.flash{height:205px;perspective:1000px;cursor:pointer}.flashin{height:100%;position:relative;transition:.6s;transform-style:preserve-3d}.flash.flip .flashin{transform:rotateY(180deg)}.face{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:22px;border-radius:18px;background:linear-gradient(135deg,#7dd3fc12,#a78bfa12);border:1px solid var(--line);backface-visibility:hidden}.back{transform:rotateY(180deg)}
-.demo{height:250px;border-radius:17px;border:1px solid var(--line);margin-top:15px;position:relative;overflow:hidden;background:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px),#091626;background-size:30px 30px}.node{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--a);box-shadow:0 0 22px #7dd3fcbb;transform:translate(-50%,-50%)}.edge{position:absolute;height:2px;background:#ffffff33;transform-origin:left center}
-.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.stat{padding:13px;border:1px solid var(--line);border-radius:13px;background:#ffffff06}.stat small{display:block;color:var(--muted)}.stat strong{font-size:1.35rem}
-#snake{position:relative}#game{width:100%;max-width:600px;display:block;margin:auto;border-radius:17px;border:1px solid var(--line);background:#071321;image-rendering:pixelated;touch-action:none}.gamegrid{display:grid;grid-template-columns:1fr 290px;gap:18px}.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;max-width:220px;margin:12px auto}.pad button:nth-child(1){grid-column:2}.pad button:nth-child(2){grid-column:1}.pad button:nth-child(3){grid-column:2}.pad button:nth-child(4){grid-column:3}.pad button:nth-child(5){grid-column:2}
-footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--muted)}
-@media(max-width:820px){.hero,.two,.three,.gamegrid{grid-template-columns:1fr}.nav nav{display:none}.hero{padding-top:55px}.titem{grid-template-columns:1fr;gap:2px}}@media(max-width:520px){.wrap{width:min(100% - 18px,1120px)}.card{padding:18px}h1{font-size:2.7rem}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Explained is an independent interactive learning project with a hands-on AI concept tool, a practical AI guide, privacy information, and an about/contact section.">
+  <title>AI Explained — Interactive AI Learning</title>
+  <style>
+
+    :root{
+      --bg:#07111f;--bg2:#0c1728;--panel:#101d31;--panel2:#0b1727;
+      --text:#eef5ff;--muted:#a9b8cf;--line:rgba(255,255,255,.11);
+      --accent:#7dd3fc;--accent2:#a78bfa;--good:#68d391;--danger:#ff8585;
+      --shadow:0 24px 80px rgba(0,0,0,.28);--radius:22px;--max:1160px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;color:var(--text);background:
+      radial-gradient(circle at 12% 8%,rgba(125,211,252,.12),transparent 28%),
+      radial-gradient(circle at 88% 4%,rgba(167,139,250,.12),transparent 30%),
+      linear-gradient(180deg,var(--bg),var(--bg2) 55%,#06101b);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      line-height:1.72
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(calc(100% - 32px),var(--max));margin:auto}
+    header{
+      position:sticky;top:0;z-index:50;background:rgba(7,17,31,.82);
+      backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+    }
+    .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.02em}
+    .brand-mark{
+      width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,rgba(125,211,252,.18),rgba(167,139,250,.22));
+      border:1px solid var(--line)
+    }
+    nav{display:flex;flex-wrap:wrap;gap:4px}
+    nav a{padding:8px 10px;border-radius:10px;color:var(--muted);font-size:.92rem}
+    nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .tool-wrap{
+      min-height:calc(100vh - 72px);display:grid;place-items:center;padding:34px 0 28px;
+    }
+    .tool-card{
+      width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;
+      padding:30px;border:1px solid var(--line);border-radius:30px;
+      background:linear-gradient(145deg,rgba(16,29,49,.94),rgba(9,22,39,.88));
+      box-shadow:var(--shadow)
+    }
+    .eyebrow{
+      display:inline-block;padding:7px 11px;border:1px solid var(--line);
+      border-radius:999px;background:rgba(255,255,255,.04);color:var(--muted);
+      font-size:.83rem;font-weight:750
+    }
+    h1,h2,h3{line-height:1.18;letter-spacing:-.025em}
+    h1{font-size:clamp(2.6rem,6vw,5rem);margin:18px 0 10px}
+    h2{font-size:clamp(1.8rem,3vw,2.5rem)}
+    h3{margin-top:0}
+    .gradient{background:linear-gradient(110deg,var(--accent),#fff 46%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);font-size:1.05rem;max-width:760px}
+    .controls{display:grid;gap:12px;margin-top:22px}
+    select,input,textarea{
+      width:100%;border:1px solid var(--line);background:#071321;color:var(--text);
+      border-radius:13px;padding:12px 13px;outline:none
+    }
+    select:focus,input:focus,textarea:focus{border-color:rgba(125,211,252,.55);box-shadow:0 0 0 3px rgba(125,211,252,.08)}
+    .btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--text);
+      border-radius:13px;padding:11px 15px;cursor:pointer;font-weight:780
+    }
+    .btn:hover{background:rgba(255,255,255,.09);transform:translateY(-1px)}
+    .btn-primary{border:0;color:#07111f;background:linear-gradient(135deg,var(--accent),#c4b5fd)}
+    .result{
+      min-height:210px;border:1px solid var(--line);border-radius:18px;padding:22px;
+      background:rgba(255,255,255,.04);display:flex;flex-direction:column;justify-content:center
+    }
+    .result .tag{color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .result h2{margin:7px 0 8px}
+    .tip{padding:12px 14px;border-left:3px solid var(--accent);background:rgba(125,211,252,.06);border-radius:10px;color:#dbeafe}
+    section{padding:64px 0;scroll-margin-top:88px}
+    .section-head{max-width:840px;margin-bottom:24px}
+    .section-head p{color:var(--muted)}
+    .grid{display:grid;gap:18px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{border:1px solid var(--line);background:rgba(16,29,49,.78);border-radius:var(--radius);padding:24px}
+    .muted{color:var(--muted)}
+    .definition{border-left:3px solid var(--accent);padding-left:16px;color:#dcecff}
+    .timeline{display:grid;gap:14px}
+    .timeline-item{display:grid;grid-template-columns:115px 1fr;gap:18px;border-top:1px solid var(--line);padding-top:15px}
+    .timeline-item strong{color:var(--accent)}
+    .table-wrap{overflow:auto}.compare{width:100%;border-collapse:collapse}
+    .compare th,.compare td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+    .compare th{background:rgba(255,255,255,.04)}
+    ul{padding-left:20px}
+    .callout{background:linear-gradient(135deg,rgba(125,211,252,.08),rgba(167,139,250,.08));border:1px solid var(--line)}
+    footer{border-top:1px solid var(--line);padding:42px 0 64px;color:var(--muted)}
+    .footer-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
+    .footer-links a{text-decoration:underline;text-underline-offset:3px}
+    .small{font-size:.87rem}
+    @media (max-width:900px){
+      .tool-card,.two,.three{grid-template-columns:1fr}
+      .tool-wrap{min-height:auto;padding-top:25px}
+    }
+    @media (max-width:620px){
+      .container{width:min(calc(100% - 20px),var(--max))}
+      nav{display:none}
+      .tool-card,.card{padding:19px}
+      .timeline-item{grid-template-columns:1fr;gap:3px}
+    }
+  
+
+    :root{--bg:#07111f;--panel:#101d31;--text:#eef5ff;--muted:#a9b8cf;--line:rgba(255,255,255,.11);--a:#7dd3fc;--b:#a78bfa;--max:920px}
+    *{box-sizing:border-box}body{margin:0;color:var(--text);background:linear-gradient(180deg,#07111f,#0c1728);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.75}
+    a{color:var(--a)}.wrap{width:min(calc(100% - 30px),var(--max));margin:auto}
+    header{border-bottom:1px solid var(--line);background:rgba(7,17,31,.88);backdrop-filter:blur(16px)}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .brand{font-weight:850;color:var(--text);text-decoration:none}.home{color:var(--muted);text-decoration:none}.home:hover{color:var(--text)}
+    main{padding:60px 0}.card{border:1px solid var(--line);background:rgba(16,29,49,.84);border-radius:22px;padding:28px;box-shadow:0 20px 70px #0003}
+    h1,h2{line-height:1.2;letter-spacing:-.02em}h1{font-size:clamp(2.4rem,6vw,4rem);margin:0 0 10px}
+    h2{margin-top:34px}.muted{color:var(--muted)}.notice{border-left:3px solid var(--a);padding:10px 0 10px 16px;background:#7dd3fc09}
+    footer{border-top:1px solid var(--line);padding:35px 0 55px;color:var(--muted)}
+    .links{display:flex;flex-wrap:wrap;gap:15px}.links a{text-decoration:underline;text-underline-offset:3px}
+  
+
+    :root{--bg:#07111f;--panel:#101d31;--text:#eef5ff;--muted:#a9b8cf;--line:rgba(255,255,255,.11);--a:#7dd3fc;--b:#a78bfa;--max:980px}
+    *{box-sizing:border-box}body{margin:0;color:var(--text);background:linear-gradient(180deg,#07111f,#0c1728);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.75}
+    a{color:var(--a)}.wrap{width:min(calc(100% - 30px),var(--max));margin:auto}
+    header{border-bottom:1px solid var(--line);background:rgba(7,17,31,.88);backdrop-filter:blur(16px)}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .brand{font-weight:850;color:var(--text);text-decoration:none}.home{color:var(--muted);text-decoration:none}
+    main{padding:60px 0}.hero{margin-bottom:22px}.hero h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.15;letter-spacing:-.025em;margin:0 0 10px}
+    .muted{color:var(--muted)}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.card{border:1px solid var(--line);background:rgba(16,29,49,.84);border-radius:22px;padding:26px;box-shadow:0 20px 70px #0003}
+    h2{line-height:1.2;letter-spacing:-.02em;margin-top:0}.label{display:block;font-weight:750;margin:13px 0 6px}
+    input,textarea{width:100%;border:1px solid var(--line);background:#071321;color:var(--text);border-radius:12px;padding:12px 13px;font:inherit}
+    input:focus,textarea:focus{outline:none;border-color:rgba(125,211,252,.55);box-shadow:0 0 0 3px rgba(125,211,252,.08)}
+    .btn{display:inline-block;border:0;border-radius:12px;padding:11px 15px;background:linear-gradient(135deg,var(--a),#c4b5fd);color:#07111f;font-weight:800;text-decoration:none;margin-top:12px}
+    .note{margin-top:16px;padding:12px 14px;border-left:3px solid var(--a);background:#7dd3fc09;color:var(--muted);border-radius:10px}
+    footer{border-top:1px solid var(--line);padding:38px 0 58px;color:var(--muted)}
+    .links{display:flex;flex-wrap:wrap;gap:15px}.links a{text-decoration:underline;text-underline-offset:3px}
+    @media(max-width:780px){.grid{grid-template-columns:1fr}}
+  
+
+/* Combined-page additions */
+.page-section{scroll-margin-top:88px}
+.page-section .page-card{border:1px solid var(--line);background:rgba(16,29,49,.84);border-radius:22px;padding:28px;box-shadow:0 20px 70px rgba(0,0,0,.18)}
+.page-section h2,.page-section h3{line-height:1.2;letter-spacing:-.02em}
+.privacy-notice{border-left:3px solid var(--accent);padding:10px 0 10px 16px;background:rgba(125,211,252,.05);border-radius:10px}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.contact-label{display:block;font-weight:750;margin:13px 0 6px}
+.contact-input,.contact-textarea{width:100%;border:1px solid var(--line);background:#071321;color:var(--text);border-radius:12px;padding:12px 13px;font:inherit}
+.contact-input:focus,.contact-textarea:focus{outline:none;border-color:rgba(125,211,252,.55);box-shadow:0 0 0 3px rgba(125,211,252,.08)}
+.privacy-links,.about-links{display:flex;flex-wrap:wrap;gap:15px;margin-top:14px}
+.privacy-links a,.about-links a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:780px){.contact-grid{grid-template-columns:1fr}}
+
+  </style>
 </head>
 <body>
-<header><div class="wrap nav">
-<a class="brand" href="#top"><span class="logo">AI</span> AI Explained</a>
-<nav><a href="#what">What is AI?</a><a href="#how">How it works</a><a href="#types">Types</a><a href="#lab">Learn</a><a href="#snake">Snake</a></nav>
-</div></header>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="AI Explained home">
+        <span class="brand-mark">AI</span><span>AI Explained</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#tool">Interactive Tool</a>
+        <a href="#guide">Guide</a>
+        <a href="#topics">Topics</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#about">About &amp; Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<main id="top"><div class="wrap">
-<section class="hero">
-<div>
-<span class="badge">Interactive beginner guide</span>
-<h1>Understand <span class="grad">Artificial Intelligence</span></h1>
-<p>AI is one of the most useful and misunderstood areas of computing. This guide explains the basics in plain language, then lets you practice with interactive lessons, a quiz, a visual neural-network demo, and a small Snake game.</p>
-<div class="actions"><a class="btn primary" href="#what">Start learning</a><a class="btn" href="#lab">Open learning lab</a></div>
-</div>
-<div class="card"><h2>Learning path</h2><p class="muted">Start with the definition, see how machine learning works, compare major AI ideas, test yourself, and finish with a game that demonstrates ordinary rule-based programming.</p><div class="chips"><span class="chip">AI basics</span><span class="chip">Machine learning</span><span class="chip">Neural networks</span><span class="chip">Generative AI</span><span class="chip">AI limits</span><span class="chip">Practice</span></div></div>
-</section>
+  <main id="top">
+    
+    <section id="tool" class="tool-wrap">
+      <div class="container">
+        <div class="tool-card">
+          <div>
+            <span class="eyebrow">Interactive AI Learning Lab</span>
+            <h1>Explore <span class="gradient">Artificial Intelligence</span></h1>
+            <p class="lead">
+              Pick an AI concept and get a simple explanation, a practical example, and a question
+              to think about. This browser-based tool is designed as a learning aid and does not send
+              your text to an AI service.
+            </p>
 
-<section id="what"><div class="head"><h2>1. What is AI?</h2><p>Artificial intelligence is a broad field of computer science concerned with building systems that can perform tasks associated with abilities such as recognizing patterns, understanding language, planning, predicting outcomes, selecting actions, or generating content.</p></div>
-<div class="grid two">
-<article class="card"><h3>A useful mental model</h3><div class="definition">Think of AI as a collection of techniques for turning inputs into useful outputs. The input might be text, an image, audio, sensor data, or numbers. The output might be a classification, prediction, recommendation, decision, or generated result.</div>
-<p>AI is not one machine and it does not always mean a humanoid robot. A spam filter, a speech recognizer, a recommendation system, an image classifier, a route-planning system, and a language model can all use AI while working in very different ways.</p>
-<p>The word “intelligence” can make AI sound more human than it really is. Modern systems can be extremely capable at particular tasks while still failing in surprising situations. It is therefore useful to describe what a model actually does rather than assuming that it has human emotions, beliefs, or consciousness.</p>
-</article>
-<article class="card"><h3>AI you may already use</h3>
-<p>AI can appear quietly inside ordinary apps. Search engines rank results. Maps estimate travel times. Email services filter spam. Cameras can detect scenes. Video platforms can recommend content. Accessibility tools can transcribe speech or describe images. Businesses can use models to forecast demand or identify unusual activity.</p>
-<p>In many cases, the AI is one component of a larger product. The interface you see may be simple even though the system behind it uses statistics, machine learning, neural networks, databases, rules, or several of these together.</p>
-</article>
-</div></section>
+            <div class="controls">
+              <label for="topic"><strong>Choose a concept</strong></label>
+              <select id="topic">
+                <option value="ai">Artificial Intelligence</option>
+                <option value="ml">Machine Learning</option>
+                <option value="deep">Deep Learning</option>
+                <option value="gen">Generative AI</option>
+                <option value="nn">Neural Networks</option>
+                <option value="agi">AGI</option>
+              </select>
+              <button class="btn btn-primary" id="exploreBtn">Explore concept</button>
+            </div>
+          </div>
 
-<section id="how"><div class="head"><h2>2. How does modern AI work?</h2><p>There is no single recipe. A common machine-learning workflow, however, includes data, a model, training, evaluation, and inference.</p></div>
-<div class="grid three">
-<article class="card"><h3>Data</h3><p>Data provides examples from which patterns can be learned. It may contain text, photographs, audio, measurements, transactions, or other records. Data quality, relevance, coverage, and labeling can strongly affect the resulting system.</p></article>
-<article class="card"><h3>Model</h3><p>A model is a mathematical structure whose parameters can be adjusted. Different model families are suited to different tasks. Neural networks are one important family, but AI also includes search methods, probabilistic models, optimization, rules, and other approaches.</p></article>
-<article class="card"><h3>Training and inference</h3><p>During training, parameters are adjusted to improve an objective using examples. During inference, the trained model is used on new inputs. Testing on unseen data is important because a model can perform well on familiar examples and poorly on new ones.</p></article>
-</div>
-<div class="card" style="margin-top:17px"><h3>A simple example</h3><p>Imagine a spam classifier. You give it many examples of messages labeled “spam” or “not spam.” The training process adjusts the model so its predictions become better according to the chosen objective. After training, a new email is passed through the model. The output might be a probability or classification that helps the application decide where to put the message.</p><p>This does not mean the model memorizes a perfect definition of spam. It learns patterns associated with the training data. If future messages are very different, the model can make mistakes. That is why evaluation, monitoring, and careful design matter.</p></div>
-</section>
+          <div class="result" id="result" aria-live="polite">
+            <div class="tag">Ready to explore</div>
+            <h2>Start with a concept</h2>
+            <p class="muted">Choose a topic and press “Explore concept.”</p>
+            <div class="tip">Learning tip: try explaining the selected concept in your own words after reading the result.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section id="types"><div class="head"><h2>3. Important AI concepts</h2><p>These ideas are related, but they are not interchangeable.</p></div>
-<div class="grid two">
-<article class="card"><h3>Machine learning</h3><p>Machine learning is a major part of AI in which systems learn patterns from data instead of relying only on hand-written rules. Supervised learning uses labeled examples; unsupervised methods can discover structure without the same labels; reinforcement learning learns through interaction and feedback.</p></article>
-<article class="card"><h3>Deep learning</h3><p>Deep learning uses neural networks with multiple layers. These networks can learn representations that support tasks such as image recognition, speech processing, language modeling, and many generative applications.</p></article>
-<article class="card"><h3>Generative AI</h3><p>Generative AI creates outputs such as text, images, audio, video, or code from learned patterns. A generated answer can be useful and fluent without being guaranteed to be correct, so verification remains important.</p></article>
-<article class="card"><h3>AGI</h3><p>Artificial general intelligence is a broad, hypothetical idea about AI that could handle many different intellectual tasks with flexible competence. Researchers and technologists do not share one universal definition or one universally accepted test for AGI.</p></article>
-</div>
-<div class="card" style="margin-top:17px;overflow:auto"><h3>AI, machine learning, and deep learning</h3><table><tr><th>Term</th><th>Meaning</th><th>Example</th></tr><tr><td>AI</td><td>Broad field of systems that perform tasks associated with intelligence.</td><td>A program that plans moves in a game.</td></tr><tr><td>Machine learning</td><td>Methods that learn patterns from examples.</td><td>Spam classification trained on labeled email.</td></tr><tr><td>Deep learning</td><td>Machine learning using multi-layer neural networks.</td><td>An image model recognizing objects.</td></tr></table></div>
-</section>
+    <section id="guide">
+      <div class="container">
+        <div class="section-head">
+          <h2>User Guide &amp; Documentation Hub</h2>
+          <p>
+            The sections below give you a practical introduction to AI: what it means, how learning
+            systems work, what modern generative models do, why they make mistakes, and how to think
+            about AI responsibly.
+          </p>
+        </div>
 
-<section><div class="head"><h2>4. A short history of AI</h2><p>AI has gone through periods of excitement, disappointment, new ideas, and renewed progress.</p></div>
-<div class="card timeline">
-<div class="titem"><strong>1940s–50s</strong><div>Early work connected computation, logic, neural models, information theory, and questions about machine intelligence.</div></div>
-<div class="titem"><strong>1956</strong><div>The Dartmouth summer research project helped establish “artificial intelligence” as the name of a research field.</div></div>
-<div class="titem"><strong>1970s–90s</strong><div>Rule-based and expert systems became important, while changing expectations and funding led to several periods sometimes called AI winters.</div></div>
-<div class="titem"><strong>2000s–2010s</strong><div>Large datasets, specialized hardware, and improved deep-learning methods produced major gains in vision, speech, and language tasks.</div></div>
-<div class="titem"><strong>2020s</strong><div>Large generative models became widely available through consumer products, developer tools, and creative applications.</div></div>
-</div></section>
+        <div class="grid two">
+          <article class="card">
+            <h3>What is artificial intelligence?</h3>
+            <p>
+              Artificial intelligence, or AI, is a broad area of computer science concerned with
+              building systems that can perform tasks commonly associated with aspects of intelligence.
+              Those tasks can include recognizing patterns, interpreting language, predicting outcomes,
+              ranking choices, planning actions, identifying objects, or generating new content.
+              AI is not one specific program or one physical machine. It is a collection of techniques
+              that can be combined in many different ways.
+            </p>
+            <p>
+              The term can be confusing because different applications use very different approaches.
+              A recommendation system might estimate which items are likely to interest a user. A
+              vision system might classify objects in photographs. A language model might predict and
+              generate sequences of text. A game-playing system might search through possible moves.
+              All can belong to the broader AI field even though their internal designs are not the same.
+            </p>
+          </article>
 
-<section><div class="head"><h2>5. What AI can and cannot do</h2><p>Being useful does not mean being infallible.</p></div>
-<div class="grid two"><article class="card"><h3>Strengths</h3><ul><li>Find patterns in large datasets.</li><li>Automate repetitive classification or prediction tasks.</li><li>Generate drafts and assist with coding, writing, or creative work.</li><li>Analyze complex inputs such as images, audio, and text.</li><li>Provide interactive tools for learning and accessibility.</li></ul></article>
-<article class="card"><h3>Limitations</h3><ul><li>Models can generate inaccurate or unsupported information.</li><li>Training data can contain bias or unwanted correlations.</li><li>Performance can drop on situations unlike the training examples.</li><li>Privacy, security, copyright, and misuse can create real-world risks.</li><li>Human review is important when mistakes have serious consequences.</li></ul></article></div>
-<div class="card" style="margin-top:17px"><h3>Why can an AI answer confidently and still be wrong?</h3><p>Many generative systems are optimized to produce plausible sequences or outputs. Fluency is not the same as factual verification. A response may sound polished because the model has learned strong patterns in language while still producing a statement that is unsupported, outdated, or simply incorrect. For important questions, treat AI output as something to check rather than an automatic source of truth.</p></div>
-</section>
+          <article class="card">
+            <h3>AI in everyday software</h3>
+            <p>
+              You may already interact with AI without noticing it. Search engines use ranking systems
+              to organize information. Maps can estimate travel times and suggest routes. Email software
+              can identify unwanted messages. Cameras can detect scenes or objects. Streaming platforms
+              can recommend content. Accessibility tools can transcribe speech, describe images, or
+              assist with communication.
+            </p>
+            <p>
+              In these products, AI is usually one component of a larger system. The application may
+              also contain databases, ordinary software rules, user-interface code, security controls,
+              and many other parts. Calling a product “AI-powered” therefore tells you very little by
+              itself; the useful question is what the system actually does and how it is evaluated.
+            </p>
+          </article>
 
-<section id="lab"><div class="head"><h2>6. Interactive learning lab</h2><p>Use these mini tools to build intuition.</p></div>
-<div class="grid two">
-<article class="card"><h3>Neural-network visualization</h3><p class="muted">This is a teaching animation, not a real trained network. Move the slider and watch the stylized nodes change.</p><input id="act" type="range" min="0" max="100" value="55" style="width:100%"><div style="display:flex;justify-content:space-between"><span class="muted">Activation</span><strong id="actv">55%</strong></div><div class="demo" id="net"></div><div class="result" id="netmsg">Moderate activation.</div></article>
-<article class="card"><h3>Flashcard</h3><p class="muted">Click to flip.</p><div class="flash" id="flash"><div class="flashin"><div class="face"><div><small>TERM</small><h2>Overfitting</h2><small>Click to reveal</small></div></div><div class="face back"><div><small>DEFINITION</small><p>A model fits training examples too closely and performs poorly on new examples. Unseen-data evaluation helps detect it.</p></div></div></div></div></article>
-</div>
+          <article class="card">
+            <h3>Machine learning</h3>
+            <p>
+              Machine learning is one of the most important branches of AI. Instead of writing a
+              separate rule for every situation, developers can train a model using examples. In
+              supervised learning, examples are paired with labels such as “spam” or “not spam.”
+              The model adjusts its internal parameters during training so its outputs better match
+              the desired results.
+            </p>
+            <p>
+              Other approaches learn from unlabeled data or from interaction and feedback. Regardless
+              of the method, the basic idea is that a model can use experience represented in data to
+              make predictions or decisions on new inputs. Evaluation on data that was not used to
+              train the model is essential because a model can memorize training examples without
+              learning patterns that generalize well.
+            </p>
+          </article>
 
-<div class="card" style="margin-top:17px"><h3>Quick quiz</h3><p id="q"></p><div class="options" id="opts"></div><div class="result" id="qr">Choose an answer.</div><div style="margin-top:12px"><small id="score" class="muted">Score: 0 / 0</small><div class="progress"><span id="prog"></span></div></div></div>
+          <article class="card">
+            <h3>Deep learning and neural networks</h3>
+            <p>
+              Deep learning is a family of machine-learning methods built around neural networks with
+              multiple layers. Each layer can transform information into a representation that is useful
+              for later layers. During training, numerical parameters are adjusted so the network becomes
+              better at an objective.
+            </p>
+            <p>
+              Neural networks can contain very large numbers of parameters, and modern systems often
+              require substantial computing resources for training. They have been especially successful
+              in areas such as computer vision, speech processing, language modeling, and generation.
+              However, a neural network is still a mathematical model. Human-like language or visual
+              behavior does not automatically establish consciousness, emotions, or human experience.
+            </p>
+          </article>
 
-<div class="grid two" style="margin-top:17px"><article class="card"><h3>Myth or fact?</h3><p><b>“Every AI system is a neural network.”</b></p><button class="btn" onclick="myth(false)">Myth</button> <button class="btn" onclick="myth(true)">Fact</button><div class="result" id="mr">Make a choice.</div></article>
-<article class="card"><h3>Explain AI yourself</h3><p class="muted">Write a sentence. This simple browser check looks for useful ideas; it is not a real teacher or AI model.</p><textarea id="answer" placeholder="AI is..."></textarea><button class="btn primary" onclick="checkAnswer()" style="margin-top:9px">Check it</button><div class="result" id="ar">Feedback appears here.</div></article></div></section>
+          <article class="card">
+            <h3>Generative AI</h3>
+            <p>
+              Generative AI refers to systems that produce new outputs based on patterns learned from
+              data. Depending on the system, an output may be text, an image, audio, video, code, or
+              another kind of content. Large language models generate text by estimating likely token
+              sequences conditioned on their input and previous context.
+            </p>
+            <p>
+              Generative systems can be useful for brainstorming, tutoring, summarizing, drafting,
+              prototyping, and many other tasks. Their outputs still need appropriate checking. A model
+              can produce a fluent answer that is incomplete, outdated, incorrectly reasoned, or
+              unsupported. The more important the decision, the more important independent verification
+              becomes.
+            </p>
+          </article>
 
-<section><div class="head"><h2>7. AI vocabulary</h2><p>These terms show up often when learning about AI.</p></div><div class="grid three">
-<div class="card"><h3>Algorithm</h3><p>A procedure or set of steps used to solve a problem or transform inputs.</p></div>
-<div class="card"><h3>Dataset</h3><p>A collection of examples or records used for training, evaluation, or analysis.</p></div>
-<div class="card"><h3>Parameter</h3><p>A value inside a model that can be adjusted during training.</p></div>
-<div class="card"><h3>Token</h3><p>A unit used by many language models to represent text, such as a word, part of a word, or punctuation.</p></div>
-<div class="card"><h3>Prompt</h3><p>An instruction or request supplied to a generative AI system.</p></div>
-<div class="card"><h3>Hallucination</h3><p>An informal term for generated information that sounds plausible but is inaccurate or unsupported.</p></div>
-</div></section>
+          <article class="card">
+            <h3>AGI and broad intelligence</h3>
+            <p>
+              Artificial general intelligence, often shortened to AGI, is a broad and hypothetical
+              concept about systems that could handle many different intellectual tasks with flexible
+              competence. There is no single universally accepted definition or test for AGI. For that
+              reason, claims about whether a particular system is “AGI” can depend heavily on the
+              definition being used.
+            </p>
+            <p>
+              It is useful to separate demonstrated capabilities from labels. A system can be excellent
+              at one task while struggling with another. Thinking in terms of measurable abilities makes
+              comparisons clearer than assuming that a broad label automatically describes every part
+              of a system.
+            </p>
+          </article>
+        </div>
 
-<section id="snake"><div class="head"><h2>8. Snake — the coding bonus</h2><p>This final game is a reminder that not every smart-looking program uses AI. Snake follows explicit rules written in JavaScript.</p></div>
-<div class="card gamegrid"><div><canvas id="game" width="560" height="560"></canvas><div class="pad"><button class="btn" onclick="dir('up')">↑</button><button class="btn" onclick="dir('left')">←</button><button class="btn" onclick="pause()">Pause</button><button class="btn" onclick="dir('right')">→</button><button class="btn" onclick="dir('down')">↓</button></div></div>
-<div><div class="statgrid"><div class="stat"><small>Score</small><strong id="gs">0</strong></div><div class="stat"><small>High score</small><strong id="gh">0</strong></div></div><p class="muted">Desktop: Arrow Keys or WASD. Press Space to pause. Mobile: use the buttons or swipe on the board.</p><button class="btn primary" onclick="start()" style="width:100%">New game</button><button class="btn" onclick="pause()" style="width:100%;margin-top:8px">Pause / Resume</button></div></div></section>
+        <div class="card callout" style="margin-top:18px">
+          <h3>How an AI system learns a pattern</h3>
+          <p>
+            Imagine a program that needs to identify unwanted email. Developers can assemble a dataset
+            containing many examples and labels. A model processes the examples and produces predictions.
+            A training process compares the predictions against the desired outcomes and uses an
+            optimization algorithm to update the model's parameters. The process is repeated many times.
+            Once training is finished, the model can be evaluated on previously unseen examples. If
+            performance remains strong on new data, that provides evidence that the model learned useful
+            patterns rather than simply memorizing the training set.
+          </p>
+          <p>
+            Real systems are more complicated. Teams choose architectures, prepare datasets, evaluate
+            results, monitor failures, test robustness, and decide how a model will be deployed. They
+            may also add filters, retrieval systems, tools, human review, and other software around the
+            model. The complete application is therefore more than the model itself.
+          </p>
+        </div>
+      </div>
+    </section>
 
-<section><div class="head"><h2>Privacy information</h2><p>A starting point for this static educational site.</p></div><div class="card muted"><p>This website is designed as a static client-side site. It does not require accounts, a database, Firebase, or a server-side application to use the learning tools and Snake game. The game can use browser local storage for a local high score.</p><p>If advertising, analytics, forms, authentication, embedded services, or other third-party tools are added, this information should be updated so it accurately describes the data practices of the live site. Third-party services can have their own privacy policies.</p><p><small>This is general website information, not legal advice. Use a policy that truthfully matches the services actually used on the published site.</small></p></div></section>
-</div></main>
+    <section id="topics">
+      <div class="container">
+        <div class="section-head">
+          <h2>More to understand</h2>
+          <p>
+            AI is powerful, but useful understanding includes its limitations, evaluation methods,
+            and real-world risks.
+          </p>
+        </div>
 
-<footer><div class="wrap"><b>AI Explained</b><p>A single-file interactive learning page about artificial intelligence, with practice tools and a Snake game.</p></div></footer>
+        <div class="grid three">
+          <article class="card">
+            <h3>Data quality</h3>
+            <p>
+              A model learns from the information available to it. Missing, noisy, unbalanced, or
+              misleading data can affect results. Data collection and labeling can therefore be as
+              important as model architecture.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Generalization</h3>
+            <p>
+              A good model should perform usefully on new inputs, not only examples seen during
+              training. Testing on unseen data helps measure whether patterns generalize.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Hallucinations</h3>
+            <p>
+              “Hallucination” is an informal term often used when a generative AI system gives
+              information that sounds plausible but is inaccurate or unsupported.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Bias and fairness</h3>
+            <p>
+              Models can reflect patterns and biases present in their training data or design choices.
+              Responsible development includes measuring important failure modes and considering who may
+              be affected by them.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Privacy</h3>
+            <p>
+              AI products can involve sensitive inputs or personal information. Good practice includes
+              minimizing unnecessary collection, protecting data, and explaining important data uses.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Human review</h3>
+            <p>
+              When an error could have serious consequences, a human review process can add an important
+              layer of checking. AI output should not automatically be treated as verified fact.
+            </p>
+          </article>
+        </div>
 
-<script>
-// Neural-network demo
-const act=document.getElementById("act"),actv=document.getElementById("actv"),net=document.getElementById("net"),netmsg=document.getElementById("netmsg");
-const pos=[[18,25],[18,50],[18,75],[50,18],[50,38],[50,62],[50,82],[82,35],[82,65]];
-function edge(x1,y1,x2,y2){let e=document.createElement("i");e.className="edge";let dx=x2-x1,dy=y2-y1;e.style.left=x1+"%";e.style.top=y1+"%";e.style.width=Math.hypot(dx,dy)+"%";e.style.transform=`rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;net.appendChild(e)}
-[[18,25],[18,50],[18,75]].forEach(a=>[[50,18],[50,38],[50,62],[50,82]].forEach(b=>edge(...a,...b)));
-[[50,18],[50,38],[50,62],[50,82]].forEach(a=>[[82,35],[82,65]].forEach(b=>edge(...a,...b)));
-pos.forEach(p=>{let n=document.createElement("i");n.className="node";n.style.left=p[0]+"%";n.style.top=p[1]+"%";net.appendChild(n)});
-function updateAct(){let v=+act.value;actv.textContent=v+"%";net.querySelectorAll(".node").forEach((n,i)=>{let on=v>=((i*11)%100);n.style.opacity=on?1:.2;n.style.transform=`translate(-50%,-50%) scale(${on?1.1:.8})`});netmsg.textContent=v<30?"Low activation: fewer nodes are visually active.":v<70?"Moderate activation: the visualization is partly active.":"High activation: many nodes are strongly active in this visual demo."}
-act.oninput=updateAct;updateAct();
+        <div class="card" style="margin-top:18px">
+          <h3>AI, machine learning, and deep learning</h3>
+          <div class="table-wrap">
+            <table class="compare">
+              <thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td>Artificial intelligence</td><td>The broad field of systems designed to perform tasks associated with intelligence.</td><td>A program that plans moves in a game.</td></tr>
+                <tr><td>Machine learning</td><td>Methods that learn patterns from data for prediction, classification, generation, or decisions.</td><td>Spam detection trained on labeled messages.</td></tr>
+                <tr><td>Deep learning</td><td>Machine learning based on multi-layer neural networks.</td><td>An image model recognizing objects.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-// Flashcard
-document.getElementById("flash").onclick=()=>document.getElementById("flash").classList.toggle("flip");
+        <div class="card" style="margin-top:18px">
+          <h3>Quick timeline</h3>
+          <div class="timeline">
+            <div class="timeline-item"><strong>1950s–60s</strong><div>Early research explored machine reasoning, symbolic methods, neural models, and questions about machine intelligence.</div></div>
+            <div class="timeline-item"><strong>1970s–90s</strong><div>Rule-based and expert systems became important while funding and expectations fluctuated through several “AI winter” periods.</div></div>
+            <div class="timeline-item"><strong>2000s–2010s</strong><div>More data, better algorithms, and stronger computing hardware helped machine learning and deep learning become highly effective in many tasks.</div></div>
+            <div class="timeline-item"><strong>2020s</strong><div>Generative AI systems became widely available through consumer products, developer platforms, and creative tools.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-// Quiz
-const qs=[
-["What is inference?","Using a trained model on new input",["Deleting the training data","Using a trained model on new input","Turning a browser into AI","Writing only HTML"]],
-["What is generative AI designed to do?","Create outputs from learned patterns",["Only store files","Create outputs from learned patterns","Never produce content","Only run games"]],
-["What is overfitting?","Fitting training examples too closely",["Having no data","Fitting training examples too closely","Making every answer correct","A hardware upgrade"]],
-["Which is an AI limitation?","It can produce plausible but incorrect information",["It knows every fact","It can produce plausible but incorrect information","It never needs testing","It is always unbiased"]
-];
-let qi=0,correct=0,answered=false;const q=document.getElementById("q"),opts=document.getElementById("opts"),qr=document.getElementById("qr"),score=document.getElementById("score"),prog=document.getElementById("prog");
-function renderQ(){if(qi>=qs.length){q.innerHTML="<b>Quiz complete!</b>";opts.innerHTML="";qr.textContent=`Final score: ${correct}/${qs.length}. Refresh to retry.`;prog.style.width="100%";return}answered=false;let item=qs[qi];q.innerHTML=`<b>Question ${qi+1}:</b> ${item[0]}`;opts.innerHTML="";item[2].forEach((o,i)=>{let b=document.createElement("button");b.className="opt";b.textContent=o;b.onclick=()=>answerQ(i,b,item);opts.appendChild(b)});qr.textContent="Choose an answer.";score.textContent=`Score: ${correct}/${qi}`;prog.style.width=(qi/qs.length*100)+"%"}
-function answerQ(i,b,item){if(answered)return;answered=true;let buttons=[...opts.children];let good=i===item[2].indexOf(item[1]);buttons[ item[2].indexOf(item[1]) ].classList.add("good");if(good){correct++;qr.textContent="Correct. Nice work."}else{b.classList.add("bad");qr.textContent="Not quite. The correct option is highlighted."}score.textContent=`Score: ${correct}/${qi+1}`;prog.style.width=((qi+1)/qs.length*100)+"%";setTimeout(()=>{qi++;renderQ()},750)}
-renderQ();
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Learning checklist</h2>
+          <p>After reading the guide, you should be able to explain these ideas in your own words.</p>
+        </div>
+        <div class="grid two">
+          <div class="card">
+            <ul>
+              <li>What AI means and why it is a broad field.</li>
+              <li>How machine learning differs from hand-written rules.</li>
+              <li>Why data quality and unseen-data testing matter.</li>
+              <li>What neural networks and deep learning are.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <ul>
+              <li>What generative AI produces.</li>
+              <li>Why AI can produce confident but incorrect information.</li>
+              <li>What AGI means as a broad, unsettled concept.</li>
+              <li>Why privacy, bias, security, and human review matter.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  
 
-// Myth and explanation
-function myth(v){document.getElementById("mr").textContent=v?"Not quite. AI includes many approaches; neural networks are only one family.":"Correct. AI includes rules, search, probabilistic methods, optimization, neural networks, and more."}
-function checkAnswer(){let t=document.getElementById("answer").value.toLowerCase().trim(),r=document.getElementById("ar");if(t.length<25){r.textContent="Add a little more detail. Mention tasks, data, patterns, learning, prediction, or generation."}else{let terms=["computer","software","data","pattern","learn","predict","generate","task","intelligence"];let m=terms.filter(x=>t.includes(x)).length;r.textContent=m>=3?"Good start. You included several useful AI ideas. Add one concrete example to make it even clearer.":"Try adding ideas such as data, patterns, learning, prediction, generation, or a real-world example."}}
+    <section id="privacy" class="page-section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Privacy Policy</h2>
+          <p>Information about data, cookies, advertising, external services, and contacting this project.</p>
+        </div>
+        
+      <h1>Privacy Policy</h1>
+      <p class="muted"><strong>Last updated:</strong> September 29, 2026</p>
 
-// Snake
-const c=document.getElementById("game"),x=c.getContext("2d"),N=28,cell=c.width/N;let s=[],food={},d={x:1,y:0},nd={x:1,y:0},sc=0,run=false,paused=false,last=0,acc=0;let hi=+localStorage.getItem("aiSnakeHigh")||0;document.getElementById("gh").textContent=hi;
-function place(){do{food={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)}}while(s.some(p=>p.x===food.x&&p.y===food.y))}
-function start(){s=[{x:13,y:14},{x:12,y:14},{x:11,y:14}];d={x:1,y:0};nd={x:1,y:0};sc=0;run=true;paused=false;document.getElementById("gs").textContent=0;place()}
-function dir(v){let m={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}}[v];if(!m)return;if(m.x===-d.x&&m.y===-d.y)return;nd=m;if(!run)start()}
-function pause(){if(run)paused=!paused}
-function step(){if(!run||paused)return;d=nd;let h={x:s[0].x+d.x,y:s[0].y+d.y};if(h.x<0||h.x>=N||h.y<0||h.y>=N||s.some(p=>p.x===h.x&&p.y===h.y)){run=false;if(sc>hi){hi=sc;localStorage.setItem("aiSnakeHigh",hi);document.getElementById("gh").textContent=hi}return}s.unshift(h);if(h.x===food.x&&h.y===food.y){sc++;document.getElementById("gs").textContent=sc;place()}else s.pop()}
-function draw(){x.clearRect(0,0,c.width,c.height);x.strokeStyle="#ffffff0b";for(let i=1;i<N;i++){x.beginPath();x.moveTo(i*cell,0);x.lineTo(i*cell,c.height);x.stroke();x.beginPath();x.moveTo(0,i*cell);x.lineTo(c.width,i*cell);x.stroke()}x.fillStyle="#a78bfa";x.beginPath();x.arc(food.x*cell+cell/2,food.y*cell+cell/2,cell*.3,0,Math.PI*2);x.fill();s.forEach((p,i)=>{x.fillStyle=i?"#3ea5ce":"#7dd3fc";x.fillRect(p.x*cell+2,p.y*cell+2,cell-4,cell-4)});if(!run){x.fillStyle="#07111fcc";x.fillRect(0,0,c.width,c.height);x.fillStyle="#eef5ff";x.textAlign="center";x.font="700 28px system-ui";x.fillText("Press New game",c.width/2,c.height/2)}} 
-function loop(t){if(!last)last=t;acc+=t-last;last=t;while(acc>=105){step();acc-=105}draw();requestAnimationFrame(loop)}
-window.addEventListener("keydown",e=>{let k=e.key.toLowerCase(),m={arrowup:"up",w:"up",arrowdown:"down",s:"down",arrowleft:"left",a:"left",arrowright:"right",d:"right"};if(m[k]){e.preventDefault();dir(m[k])}if(k===" "){e.preventDefault();pause()}});
-c.addEventListener("touchstart",e=>{let t=e.changedTouches[0];c.dataset.sx=t.clientX;c.dataset.sy=t.clientY},{passive:true});
-c.addEventListener("touchend",e=>{let t=e.changedTouches[0],dx=t.clientX-(+c.dataset.sx),dy=t.clientY-(+c.dataset.sy);if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;dir(Math.abs(dx)>Math.abs(dy)?(dx>0?"right":"left"):(dy>0?"down":"up"))},{passive:true});
-start();requestAnimationFrame(loop);
-</script>
+      <p>
+        This Privacy Policy explains how AI Explained (“we,” “us,” or “the site”) handles information
+        when you visit and use this website. The site is an independent educational project. Our
+        interactive learning tool operates in the browser and does not require an account or a
+        server-side submission of the text you enter into the tool.
+      </p>
+
+      <div class="notice">
+        <strong>Important:</strong> This policy is general website information and is not legal advice.
+        Your final policy should be kept accurate for the exact services, advertising settings,
+        analytics tools, hosting arrangement, and jurisdictions that apply to your live site.
+      </div>
+
+      <h2>1. Information that may be collected</h2>
+      <p>
+        Depending on the services used to host, secure, measure, or monetize the site, information
+        may be processed automatically when a page is requested. This can include an IP address,
+        browser type, operating-system information, language settings, device or browser identifiers,
+        approximate location derived from an IP address, referring and exit pages, date and time of
+        requests, pages viewed, interactions with advertising, and technical information needed to
+        deliver the website or detect abuse.
+      </p>
+      <p>
+        We do not ask visitors to create an account or provide a name, telephone number, or postal
+        address to use the core learning tool. If you contact us by email, we will receive the
+        information you choose to include in that message, such as your email address, message text,
+        and any attachments you send.
+      </p>
+
+      <h2>2. Standard log files</h2>
+      <p>
+        Like many websites and online services, hosting, security, advertising, or infrastructure
+        providers may automatically maintain standard log information. Depending on the provider,
+        these logs can include IP addresses, browser and device characteristics, Internet service
+        provider information, timestamps, referring or exit pages, clicks, and the pages requested.
+        Log data is commonly used for purposes such as operating the service, diagnosing technical
+        problems, measuring performance, maintaining security, preventing abuse, and understanding
+        aggregate traffic.
+      </p>
+      <p>
+        The site operator does not use standard log files to intentionally build a personal profile
+        of visitors for purposes unrelated to operating, securing, measuring, or monetizing the site.
+        Retention periods and exact log fields are controlled by the relevant hosting or service
+        providers and can change over time.
+      </p>
+
+      <h2>3. Cookies and similar technologies</h2>
+      <p>
+        A cookie is a small data file that a website or third-party service can store in a visitor's
+        browser. Cookies and similar technologies can be used for essential website functions,
+        preferences, analytics, security, advertising measurement, frequency control, or personalized
+        advertising, depending on the services enabled on the site.
+      </p>
+      <p>
+        The built-in learning tool itself does not require a login or server-side account. If local
+        browser storage or cookies are added for a feature, those technologies should be described
+        here in an updated version of this policy.
+      </p>
+
+      <h2>4. Google AdSense and third-party advertising vendors</h2>
+      <p>
+        The site may use Google AdSense and other third-party advertising vendors to display
+        advertising. Google explains that advertising services can use cookies or similar
+        technologies to help deliver, measure, limit repetition of, or personalize advertising.
+        Third-party vendors may also place or read cookies, use web beacons, or process technical
+        information such as IP addresses in connection with ad serving.
+      </p>
+      <p>
+        Older privacy-policy templates sometimes describe a “DoubleClick DART cookie.” Google's
+        current publisher documentation generally describes advertising cookies and third-party
+        cookies more broadly, including cookies associated with domains such as
+        <code>doubleclick.net</code>. For that reason, this policy does not represent the legacy DART
+        term as the only cookie currently used. The exact cookies and advertising technologies used
+        can vary based on Google's systems, publisher settings, user choices, region, and applicable
+        consent requirements.
+      </p>
+      <p>
+        Google states that its advertising cookies can be used to help show ads that may be more
+        relevant, measure advertising performance, and prevent repeated or fraudulent activity.
+        Users may manage Google's personalized advertising choices through Google Ads Settings.
+      </p>
+      <p>
+        <strong>Opt-out instructions:</strong> Visitors can control personalized advertising by using
+        Google's Ads Settings:
+        <a href="https://adssettings.google.com/" rel="noopener noreferrer" target="_blank">Google Ads Settings</a>.
+        Visitors can also manage advertising cookies through available browser controls and, where
+        applicable, consumer choice tools such as
+        <a href="https://optout.aboutads.info/" rel="noopener noreferrer" target="_blank">aboutads.info</a>.
+        Disabling personalized advertising does not necessarily mean that all advertising will
+        disappear; non-personalized or contextual advertising may still be shown.
+      </p>
+
+      <h2>5. How Google may use information</h2>
+      <p>
+        If Google services are integrated into the site, information may be transmitted to Google
+        when a page containing those services is loaded. Google states that information from partner
+        sites can be used to deliver services, maintain and improve them, measure advertising
+        effectiveness, protect against fraud and abuse, and personalize content and ads depending
+        on settings and applicable policies.
+      </p>
+      <p>
+        For more information, see
+        <a href="https://www.google.com/policies/privacy/partners/" rel="noopener noreferrer" target="_blank">
+          How Google uses information from sites or apps that use our services
+        </a>
+        and
+        <a href="https://policies.google.com/technologies/ads" rel="noopener noreferrer" target="_blank">
+          Google's advertising privacy information
+        </a>.
+      </p>
+
+      <h2>6. Contact messages</h2>
+      <p>
+        If you contact us by email, we may use the information you provide to respond to your message,
+        investigate technical problems, handle feedback, and maintain the security or integrity of
+        the website. We do not publish your private email message unless you give us permission or
+        disclosure is required by law.
+      </p>
+
+      <h2>7. Data sharing</h2>
+      <p>
+        We may rely on third-party service providers for hosting, security, advertising, analytics,
+        email delivery, or other infrastructure. Those providers may process technical information
+        as necessary to provide their services. We may also disclose information where required by
+        law, to protect rights or safety, or to investigate fraud, abuse, or security incidents.
+      </p>
+
+      <h2>8. Data retention</h2>
+      <p>
+        We retain information only for as long as reasonably necessary for the purpose for which it
+        was collected, to maintain records, resolve disputes, meet legal obligations, or protect
+        the site and its users. Third-party providers can have their own retention periods, which
+        are governed by their respective policies.
+      </p>
+
+      <h2>9. Children's and young users' privacy</h2>
+      <p>
+        This website is an educational resource and is not designed to require children to submit
+        personal information. The site does not intentionally ask visitors to create accounts or
+        provide sensitive personal information through the learning tool. Parents and guardians can
+        review the privacy practices of third-party advertising and service providers used on the site.
+      </p>
+
+      <h2>10. External links</h2>
+      <p>
+        This policy may link to websites operated by other organizations, including Google. We do
+        not control those external websites. Their privacy practices are governed by their own
+        policies, and you should review those policies when following an external link.
+      </p>
+
+      <h2>11. Changes to this policy</h2>
+      <p>
+        This policy may be updated when the site's features, third-party services, advertising
+        configuration, or legal requirements change. The revised version will be posted on this page
+        with an updated date.
+      </p>
+
+      <h2>12. Contact</h2>
+      <p>
+        Questions about this policy or the site's privacy practices can be sent to
+        <a href="mailto:orginationcorporation@gmail.com">orginationcorporation@gmail.com</a>.
+      </p>
+    
+      </div>
+    </section>
+
+    <section id="about" class="page-section">
+      <div class="container">
+        <div class="section-head">
+          <h2>About &amp; Contact</h2>
+          <p>Learn about the project and contact us with feedback or error reports.</p>
+        </div>
+        
+  <div class="wrap">
+    <div class="contact-grid">
+      <section class="page-card">
+        <h2>About the project</h2>
+        <p>
+          AI Explained is an independent interactive AI project created to provide hands-on utilities
+          for learning about artificial intelligence. The goal is to make core concepts easier to
+          explore by combining plain-language documentation with browser-based interactive features.
+        </p>
+        <p>
+          The project is designed for curious learners who want more than a glossary. Visitors can
+          explore concepts, compare related ideas, test their understanding, and use simple interactive
+          demonstrations to build intuition. The site is intentionally lightweight so that the core
+          learning experience can work as a modern web page without requiring an account.
+        </p>
+        <p>
+          The information provided on this project is educational. AI changes quickly, and individual
+          models, products, laws, policies, and technical practices can change over time. For important
+          technical, legal, financial, medical, or safety decisions, readers should consult appropriate
+          authoritative sources and qualified professionals.
+        </p>
+        <div class="note">
+          We welcome corrections. Good educational projects improve when readers point out unclear,
+          outdated, or incorrect information.
+        </div>
+      </section>
+
+      <section class="page-card">
+        <h2>Contact Us</h2>
+        <p class="muted">
+          Use the address below for general feedback, questions about the site, or reports of broken
+          features and incorrect page content.
+        </p>
+
+        <form id="contactForm">
+          <label class="label" for="name">Name (optional)</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name">
+
+          <label class="label" for="email">Your email</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+
+          <label class="label" for="message">Message</label>
+          <textarea id="message" name="message" rows="7" placeholder="Tell us what you noticed..." required></textarea>
+
+          <button class="btn" type="submit">Open email</button>
+        </form>
+
+        <p id="formStatus" class="muted" aria-live="polite"></p>
+
+        <p>
+          Direct email:
+          <a href="mailto:orginationcorporation@gmail.com">orginationcorporation@gmail.com</a>
+        </p>
+      </section>
+    </div>
+  </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>AI Explained</strong>
+      <p class="small">
+        An independent interactive learning project about artificial intelligence.
+      </p>
+      <div class="footer-links">
+        <a href="#top">Home</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#about">About &amp; Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+
+    const concepts = {
+      ai: {
+        label: "Artificial Intelligence",
+        title: "AI is the broad field",
+        text: "AI covers methods used to build systems that perform tasks associated with abilities such as pattern recognition, prediction, planning, language processing, and generation.",
+        example: "Example: a game-playing program that selects moves by searching possible future states.",
+        think: "Ask yourself: what input does the system receive, and what output does it produce?"
+      },
+      ml: {
+        label: "Machine Learning",
+        title: "Machine learning learns patterns from data",
+        text: "Machine learning trains a model using examples so it can make useful predictions or decisions on new inputs.",
+        example: "Example: a spam classifier trained from messages labeled as spam or not spam.",
+        think: "Ask yourself: what examples would you need to train a model for your own task?"
+      },
+      deep: {
+        label: "Deep Learning",
+        title: "Deep learning uses layered neural networks",
+        text: "Deep learning is a family of machine-learning methods based on neural networks with multiple layers that learn useful representations.",
+        example: "Example: a vision model learning patterns that help it recognize objects in images.",
+        think: "Ask yourself: what makes a representation useful for the next layer?"
+      },
+      gen: {
+        label: "Generative AI",
+        title: "Generative AI creates new outputs",
+        text: "Generative AI produces outputs such as text, images, audio, video, or code based on patterns learned during training.",
+        example: "Example: a language model generating a draft explanation from a user's prompt.",
+        think: "Ask yourself: why should a fluent generated answer still be checked?"
+      },
+      nn: {
+        label: "Neural Networks",
+        title: "Neural networks are mathematical models",
+        text: "A neural network contains connected numerical units arranged in layers. During training, its parameters are adjusted to improve performance on a chosen objective.",
+        example: "Example: a classifier whose output estimates which category an input image belongs to.",
+        think: "Ask yourself: what might happen when the training data does not represent the situation you care about?"
+      },
+      agi: {
+        label: "Artificial General Intelligence",
+        title: "AGI is a broad, unsettled concept",
+        text: "AGI is commonly used for a hypothetical form of AI with broad and flexible competence across many kinds of tasks. There is no single universally accepted definition or test.",
+        example: "Example question: would a system need to transfer knowledge between very different tasks to count as general intelligence?",
+        think: "Ask yourself: how would you define a measurable test for broad AI ability?"
+      }
+    };
+
+    const topic = document.getElementById("topic");
+    const result = document.getElementById("result");
+
+    function explore() {
+      const c = concepts[topic.value];
+      result.innerHTML = `
+        <div class="tag">${c.label}</div>
+        <h2>${c.title}</h2>
+        <p>${c.text}</p>
+        <p><strong>${c.example}</strong></p>
+        <div class="tip">${c.think}</div>
+      `;
+    }
+
+    document.getElementById("exploreBtn").addEventListener("click", explore);
+    topic.addEventListener("change", explore);
+  
+
+
+  document.getElementById("contactForm").addEventListener("submit", function(event){
+    event.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const subject = encodeURIComponent("AI Explained — Website Feedback");
+    const body = encodeURIComponent(
+      "Name: " + (name || "Not provided") + "\\n" +
+      "Reply email: " + email + "\\n\\n" +
+      message
+    );
+    window.location.href =
+      "mailto:orginationcorporation@gmail.com?subject=" + subject + "&body=" + body;
+    document.getElementById("formStatus").textContent =
+      "Your email app should open with the message filled in. If it does not, use the direct email address above.";
+  });
+
+  </script>
 </body>
 </html>
